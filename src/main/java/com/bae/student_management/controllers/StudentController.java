@@ -52,7 +52,7 @@ public class StudentController {
         return service.getBySecondName(secondName);
     }
 
-    @GetMapping("/getBySecondName/{secondName}")
+    @GetMapping("/getByAge/{age}")
     public List<Student> getByAge(@PathVariable int age) {
         return service.getByAge(age);
     }
