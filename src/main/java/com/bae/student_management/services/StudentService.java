@@ -30,6 +30,12 @@ public class StudentService {
         return new ResponseEntity<List<Student>>(this.service.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/getById/{id}")
+    // @PathVariable allows us to pass a variable (in this case ID) to the path &
+    // service.readById method
+    public ResponseEntity<Student> getById(@PathVariable long id) {
+        return new ResponseEntity<Student>(this.service.getById(id), HttpStatus.OK);
+    }
 
 
 }
