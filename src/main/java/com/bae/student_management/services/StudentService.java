@@ -38,5 +38,17 @@ public class StudentService {
         return repo.findStudentBySecondName(secondName);
     }
 
+    // Put requests (UPDATE)
+    public Student update(long id, Student students) {
+        Student existing = repo.findById(id).orElseThrow(StudentNotFoundException::new);
+
+        existing.setFirstName(students.getFirstName());
+        existing.setSecondName(students.getSecondName());
+        existing.setAge(students.getAge());
+        existing.setEmail(students.getEmail());
+        existing.setContactNumber(students.getContactNumber());
+
+        return repo.saveAndFlush(existing);
+    }
 
 }
