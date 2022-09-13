@@ -49,7 +49,12 @@ public class StudentController {
 
     @GetMapping("/getBySecondName/{secondName}")
     public List<Student> getBySecondName(@PathVariable String secondName) {
-        return service.getByFirstName(secondName);
+        return service.getBySecondName(secondName);
+    }
+
+    @GetMapping("/getBySecondName/{secondName}")
+    public List<Student> getByAge(@PathVariable int age) {
+        return service.getByAge(age);
     }
 
     // Put requests (UPDATE)

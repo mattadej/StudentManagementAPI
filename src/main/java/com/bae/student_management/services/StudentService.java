@@ -39,6 +39,10 @@ public class StudentService {
         return repo.findStudentBySecondName(secondName);
     }
 
+    public List<Student> getByAge(int age) {
+        return repo.findStudentByAge(age);
+    }
+
     // Put requests (UPDATE)
     public Student update(long id, Student students) {
         Student existing = repo.findById(id).orElseThrow(StudentNotFoundException::new);
