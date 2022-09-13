@@ -60,4 +60,13 @@ public class StudentController {
         return new ResponseEntity<Student>(this.service.update(id, students), HttpStatus.ACCEPTED);
     }
 
+    // Delete requests (DELETE)
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> remove(@PathVariable long id) {
+        //Ternary operator, IF  service.delete is successful, return no content
+        //ELSE return not found
+        return (this.service.remove(id)) ? new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT) :
+                new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
+    }
+
 }
