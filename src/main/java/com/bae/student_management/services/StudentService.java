@@ -1,3 +1,4 @@
+package com.bae.student_management.services;
 
 import com.bae.student_management.exceptions.StudentNotFoundException;
 import com.bae.student_management.repos.StudentRepo;
