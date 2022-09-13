@@ -42,4 +42,14 @@ public class StudentController {
         return new ResponseEntity<Student>(this.service.getById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/getByFirstName/{firstName}")
+    public List<Student> getByFirstName(@PathVariable String firstName) {
+        return service.getByFirstName(firstName);
+    }
+
+    @GetMapping("/getBySecondName/{secondName}")
+    public List<Student> getBySecondName(@PathVariable String secondName) {
+        return service.getByFirstName(secondName);
+    }
+
 }
