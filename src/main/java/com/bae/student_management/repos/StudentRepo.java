@@ -9,10 +9,12 @@ import java.util.List;
 @Repository
 public interface StudentRepo extends JpaRepository<Student, Long> {
 
-    // Find by firstName. This will return multiple records.
+    // Find students by their second name
     List<Student> findStudentByFirstName(String firstName);
 
-    // Find by secondName. This will return multiple records.
+    // Find students by their second name
     List<Student> findStudentBySecondName(String secondName);
 
+    //Find students by their age
+    List<Student> findStudentByAge(int age);
 }
