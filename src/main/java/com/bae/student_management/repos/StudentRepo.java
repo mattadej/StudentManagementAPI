@@ -11,4 +11,8 @@ public interface StudentRepo extends JpaRepository<Student, Long> {
 
     // Find by firstName. This will return multiple records.
     List<Student> findStudentByFirstName(String firstName);
+
+    // Find by secondName. This will return multiple records.
+    List<Student> findStudentBySecondName(String secondName);
+
 }
