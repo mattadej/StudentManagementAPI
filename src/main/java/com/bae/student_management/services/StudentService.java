@@ -30,5 +30,13 @@ public class StudentService {
         return repo.findById(id).orElseThrow(StudentNotFoundException::new);
     }
 
+    public List<Student> getByFirstName(String firstName) {
+        return repo.findStudentByFirstName(firstName);
+    }
+
+    public List<Student> getBySecondName(String secondName) {
+        return repo.findStudentBySecondName(secondName);
+    }
+
 
 }
