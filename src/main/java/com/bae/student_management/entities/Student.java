@@ -3,6 +3,7 @@ package com.bae.student_management.entities;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Objects;
 
 @Entity
 public class Student {
@@ -109,6 +110,21 @@ public class Student {
         this.email = email;
     }
 
+    //More for testing when comparing objects match
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && age == student.age && Objects.equals(firstName, student.firstName)
+                && Objects.equals(secondName, student.secondName) &&
+                Objects.equals(contactNumber, student.contactNumber) && Objects.equals(email, student.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, secondName, age, contactNumber, email);
+    }
 
 }
