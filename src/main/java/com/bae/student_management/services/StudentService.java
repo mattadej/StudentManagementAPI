@@ -51,4 +51,10 @@ public class StudentService {
         return repo.saveAndFlush(existing);
     }
 
+    // Delete requests (DELETE)
+    public boolean remove(long id) {
+        repo.deleteById(id);
+        return !repo.existsById(id);
+    }
+
 }
