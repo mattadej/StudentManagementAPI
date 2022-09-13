@@ -1,40 +1,33 @@
-package com.bae.student_management.services;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/student")
+import com.bae.student_management.exceptions.StudentNotFoundException;
+import com.bae.student_management.repos.StudentRepo;
+import com.bae.student_management.entities.Student;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
 public class StudentService {
 
-    private StudentService service;
+    private StudentRepo repo;
 
-    public StudentController(StudentService service) {
+    public StudentService(StudentRepo repo) {
         super();
-        this.service = service;
+        this.repo = repo;
     }
 
     // Post requests (CREATE)
-    @PostMapping("/create")
-    // @RequestBody allows us to pass through an object/data when we make the
-    // request
-    public ResponseEntity<Student> create(@RequestBody Student students){
-        return new ResponseEntity<Student>(this.service.create(students), HttpStatus.CREATED);
+    public Student create(Student input) {
+        return repo.saveAndFlush(input);
     }
 
     // Get requests (READ)
-    @GetMapping("/getAll")
-    // We return a list because the readAll method in the service class returns a
-    // list also
-    public ResponseEntity<List<Student>> getAll() {
-        return new ResponseEntity<List<Student>>(this.service.getAll(), HttpStatus.OK);
+    public List<Student> getAll() {
+        return repo.findAll();
     }
 
-    @GetMapping("/getById/{id}")
-    // @PathVariable allows us to pass a variable (in this case ID) to the path &
-    // service.readById method
-    public ResponseEntity<Student> getById(@PathVariable long id) {
-        return new ResponseEntity<Student>(this.service.getById(id), HttpStatus.OK);
+    public Student getById(long id) {
+        return repo.findById(id).orElseThrow(StudentNotFoundException::new);
     }
 
 
