@@ -22,6 +22,13 @@ public class StudentService {
         return new ResponseEntity<Student>(this.service.create(students), HttpStatus.CREATED);
     }
 
+    // Get requests (READ)
+    @GetMapping("/getAll")
+    // We return a list because the readAll method in the service class returns a
+    // list also
+    public ResponseEntity<List<Student>> getAll() {
+        return new ResponseEntity<List<Student>>(this.service.getAll(), HttpStatus.OK);
+    }
 
 
 
