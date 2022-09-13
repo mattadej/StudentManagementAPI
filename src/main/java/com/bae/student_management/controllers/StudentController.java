@@ -52,4 +52,12 @@ public class StudentController {
         return service.getByFirstName(secondName);
     }
 
+    // Put requests (UPDATE)
+    @PutMapping("/update/{id}")
+    // update requires both RequestBody and PathVariable as it takes in the id, and
+    // also passes through the new object information
+    public ResponseEntity<Student> update(@PathVariable long id, @RequestBody Student students) {
+        return new ResponseEntity<Student>(this.service.update(id, students), HttpStatus.ACCEPTED);
+    }
+
 }
