@@ -1,8 +1,6 @@
 package com.bae.student_management.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @Entity
@@ -21,9 +19,6 @@ public class Student {
     @Column(nullable = false)
     private String secondName;
 
-    // The minimum age for a student is 11, the maximum is 16
-    @Min(11)
-    @Max(16)
     @Column(nullable = false)
     private int age;
 
