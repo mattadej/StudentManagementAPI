@@ -88,6 +88,12 @@ let create = () => {
 
 // Update
 let update = () => {
+
+    if (!updateValidation()) {
+        alert("All required fields do not have values.")
+        return;
+    }
+
     let obj = {
         "firstName": inputFirstName.value,
         "secondName": inputSecondName.value,
@@ -147,7 +153,15 @@ let createValidation = () => {
 }
 
 // Update
-
+let updateValidation = () => {
+    if (inputID.value === "" || inputFirstName.value === "" || inputSecondName.value === ""
+        || inputAge.value === "" || inputContactNumber.value === ""
+        || inputEmail.value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // Delete
 
