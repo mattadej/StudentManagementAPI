@@ -1,14 +1,15 @@
 package com.bae.student_management.controllers;
 
+
 import com.bae.student_management.entities.Student;
+import com.bae.student_management.services.StudentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -21,18 +22,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc //gives us the ability to send mock requests using MockMVC
-@Sql(scripts = {"classpath:studentschema.sql", "classpath:studentdata.sql"},
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-@ActiveProfiles("test") //switches to our h2 database
-public class StudentControllerIntegrationTest {
+@WebMvcTest
+public class StudentControllerUnitTest {
 
     @Autowired
-    private MockMvc mvc; //this is for sending mick requests
+    private MockMvc mvc;
 
     @Autowired
-    private ObjectMapper mapper; //Is converting to and from JSON data
+    private ObjectMapper mapper;
+
+    @MockBean
+    private StudentService service;
 
     @Test
     public void createTest() throws Exception {
@@ -45,6 +45,8 @@ public class StudentControllerIntegrationTest {
         Student response= new Student(2L, "Michael", "Jordan", 16, "07999999999",
                 "email@email.com");
         String responseAsJSON = this.mapper.writeValueAsString(response);
+
+        Mockito.when(service.create(input)).thenReturn(response);
 
         this.mvc.perform(post("/student/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -63,6 +65,8 @@ public class StudentControllerIntegrationTest {
         //converted that list into JSON
         String resultAsJSON = mapper.writeValueAsString(result);
 
+        Mockito.when(service.getAll()).thenReturn(result);
+
         this.mvc.perform(get("/student/getAll")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -76,6 +80,7 @@ public class StudentControllerIntegrationTest {
                 "email@email.com");
         String resultAsJSON = this.mapper.writeValueAsString(result);
 
+        Mockito.when(service.getById(1L)).thenReturn(result);
 
         this.mvc.perform(get("/student/getById/1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -93,6 +98,8 @@ public class StudentControllerIntegrationTest {
         //Convert that list to JSON
         String resultAsJSON = this.mapper.writeValueAsString(result);
 
+        Mockito.when(service.getByFirstName("Michael")).thenReturn(result);
+
         mvc.perform(get("/student/getByFirstName/Michael")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -108,6 +115,8 @@ public class StudentControllerIntegrationTest {
                 "email@email.com"));
         //Convert that list to JSON
         String resultAsJSON = this.mapper.writeValueAsString(result);
+
+        Mockito.when(service.getBySecondName("Jordan")).thenReturn(result);
 
         mvc.perform(get("/student/getBySecondName/Jordan")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -125,6 +134,8 @@ public class StudentControllerIntegrationTest {
         //Convert that list to JSON
         String resultAsJSON = this.mapper.writeValueAsString(result);
 
+        Mockito.when(service.getByAge(16)).thenReturn(result);
+
         mvc.perform(get("/student/getByAge/16")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -138,6 +149,8 @@ public class StudentControllerIntegrationTest {
                 "email@email.com");
         String inputAsJSON = this.mapper.writeValueAsString(input);
 
+        Mockito.when(service.update(1L, input)).thenReturn(input);
+
         this.mvc.perform(put("/student/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(inputAsJSON))
@@ -148,13 +161,16 @@ public class StudentControllerIntegrationTest {
     @Test
     public void deleteTest() throws Exception {
 
+        Mockito.when(service.remove(1L)).thenReturn(true);
+
         this.mvc.perform(delete("/student/delete/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
 //        this.mvc.perform(MockMvcRequestBuilders
-//                .delete("/student/delete/1"))
+//                        .delete("/student/delete/1"))
 //                .andExpect(status().isNoContent());
-
     }
+
 }
+
