@@ -66,6 +66,11 @@ let getByAge = () => {
 // Create
 let create = () => {
 
+    if (!createValidation()) {
+        alert("All required fields do not have values.")
+        return;
+    }
+
     let obj = {
         "firstName": inputFirstName.value,
         "secondName": inputSecondName.value,
@@ -116,3 +121,33 @@ getByIDBtn.addEventListener("click", getByID);
 getByFirstNameBtn.addEventListener("click", getByFirstName);
 getBySecondNameBtn.addEventListener("click", getBySecondName);
 getByAgeBtn.addEventListener("click", getByAge);
+
+// VALIDATION
+// Get By ID
+
+
+// Get By First Name
+
+
+// Get By Second Name   
+
+
+// Get By Age
+
+
+// Create
+let createValidation = () => {
+    if (inputFirstName.value === "" || inputSecondName.value === ""
+        || inputAge.value === "" || inputContactNumber.value === ""
+        || inputEmail.value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Update
+
+
+// Delete
+
