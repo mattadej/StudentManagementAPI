@@ -33,6 +33,12 @@ let getAll = () => {
 
 // Get By ID
 let getByID = () => {
+
+    if (!idValidation()) {
+        alert("An ID needs to be entered.")
+        return;
+    }
+
     axios.get(`http://localhost:8080/student/getById/${inputID.value}`)
         .then(res => {
             console.log(res.data);
@@ -155,7 +161,13 @@ getByAgeBtn.addEventListener("click", getByAge);
 
 // VALIDATION
 // Get By ID
-
+let idValidation = () => {
+    if (inputID.value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // Get By First Name
 let firstNameValidation = () => {
