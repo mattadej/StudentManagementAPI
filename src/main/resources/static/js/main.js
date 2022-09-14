@@ -41,6 +41,12 @@ let getByID = () => {
 
 // Get By First Name
 let getByFirstName = () => {
+
+    if (!firstNameValidation()) {
+        alert("A first name needs to be entered.")
+        return;
+    }
+
     axios.get(`http://localhost:8080/student/getByFirstName/${inputFirstName.value}`)
         .then(res => {
             console.log(res.data);
@@ -140,7 +146,13 @@ getByAgeBtn.addEventListener("click", getByAge);
 
 
 // Get By First Name
-
+let firstNameValidation = () => {
+    if (inputFirstName.value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // Get By Second Name   
 
