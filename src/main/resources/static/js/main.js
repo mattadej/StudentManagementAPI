@@ -110,7 +110,14 @@ let update = () => {
 }
 
 // Delete
+
 let del = () => {
+
+    if (!deleteValidation()) {
+        alert("An ID is needed to carry out this operation.")
+        return;
+    }
+
     axios.delete(`http://localhost:8080/student/delete/${inputID.value}`)
         .then(res => {
             console.log(res.data);
@@ -164,4 +171,14 @@ let updateValidation = () => {
 }
 
 // Delete
+let deleteValidation = () => {
+    if (inputID.value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
 
