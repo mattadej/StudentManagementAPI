@@ -3,7 +3,7 @@
 // SELECTORS
 
 // DIVS
-
+let resultDiv = document.querySelector("#result-div");
 
 // INPUTS
 let inputID = document.querySelector("#inputID");
@@ -23,11 +23,31 @@ let getBySecondNameBtn = document.querySelector("#getBySecondNameBtn");
 let getByAgeBtn = document.querySelector("#getByAgeBtn");
 
 // FUNCTIONS
+// Printing Table To Screen
+let databaseResults = (result => {
+    let entryDiv = document.createElement("div");
+    entryDiv.setAttribute("class", "entry-div");
+
+    let entryPrint = document.createElement("div");
+    entryPrint.setAttribute("class", "entry-print");
+    entryPrint.textContent = `${result.id} || ${result.firstName} || ${result.secondName} 
+    || ${result.age} || ${result.contactNumber} || ${result.email}`;
+
+    entryDiv.appendChild(entryPrint);
+    resultDiv.appendChild(entryDiv);
+})
+
+
 // Get All
 let getAll = () => {
     axios.get("http://localhost:8080/student/getAll")
         .then(res => {
-            console.log(res.data);
+            resultDiv.innerHTML = "";
+            let results = res.data;
+
+            for (let result of results) {
+                databaseResults(result);
+            }
         }).catch(err => console.log(err));
 }
 
@@ -41,7 +61,7 @@ let getByID = () => {
 
     axios.get(`http://localhost:8080/student/getById/${inputID.value}`)
         .then(res => {
-            console.log(res.data);
+            getAll();
         }).catch(err => console.log(err));
 }
 
@@ -55,7 +75,7 @@ let getByFirstName = () => {
 
     axios.get(`http://localhost:8080/student/getByFirstName/${inputFirstName.value}`)
         .then(res => {
-            console.log(res.data);
+            getAll();
         }).catch(err => console.log(err));
 }
 
@@ -69,7 +89,7 @@ let getBySecondName = () => {
 
     axios.get(`http://localhost:8080/student/getBySecondName/${inputSecondName.value}`)
         .then(res => {
-            console.log(res.data);
+            getAll();
         }).catch(err => console.log(err));
 }
 
@@ -83,7 +103,7 @@ let getByAge = () => {
 
     axios.get(`http://localhost:8080/student/getByAge/${inputAge.value}`)
         .then(res => {
-            console.log(res.data);
+            getAll();
         }).catch(err => console.log(err));
 }
 
@@ -105,7 +125,6 @@ let create = () => {
 
     axios.post("http://localhost:8080/student/create", obj)
         .then(res => {
-            console.log(res.data);
             getAll();
         }).catch(err => console.log(err));
 }
@@ -128,7 +147,6 @@ let update = () => {
 
     axios.put(`http://localhost:8080/student/update/${inputID.value}`, obj)
         .then(res => {
-            console.log(res.data);
             getAll();
         }).catch(err => console.log(err));
 }
@@ -144,7 +162,6 @@ let del = () => {
 
     axios.delete(`http://localhost:8080/student/delete/${inputID.value}`)
         .then(res => {
-            console.log(res.data);
             getAll();
         }).catch(err => console.log(err));
 }

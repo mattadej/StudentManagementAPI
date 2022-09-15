@@ -7,8 +7,8 @@
     padding: 10px;
 }
 
-#resultDiv {
-    border: 2px solid black;
+#result-div {
+    border: solid 10px rgb(132, 0, 255);
     margin-top: 1%;
     margin-left: 25%;
     width: 50%;
@@ -17,3 +17,5 @@
 .mb-3 {
     padding: 5px;
 }
+
+.entry-print {}
