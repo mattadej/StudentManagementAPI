@@ -82,11 +82,9 @@ let getByID = () => {
     axios.get(`http://localhost:8080/student/getById/${inputID.value}`)
         .then(res => {
             resultDiv.innerHTML = "";
-            let results = res.data;
+            let result = res.data;
 
-            for (let result of results) {
-                databaseResults(result);
-            }
+            databaseResults(result);
         }).catch(err => console.log(err));
 }
 
