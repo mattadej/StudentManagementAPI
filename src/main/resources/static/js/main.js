@@ -283,7 +283,3 @@ let deleteValidation = () => {
         return true;
     }
 }
-
-
-
-
