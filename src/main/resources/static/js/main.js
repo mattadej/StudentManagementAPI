@@ -24,7 +24,7 @@ let getByAgeBtn = document.querySelector("#getByAgeBtn");
 
 // FUNCTIONS
 // Printing Table To Screen
-let databaseResults = (result => {
+let databaseResults = (result) => {
     let entryDiv = document.createElement("div");
     entryDiv.setAttribute("class", "entry-div");
 
@@ -33,10 +33,30 @@ let databaseResults = (result => {
     entryPrint.textContent = `${result.id} || ${result.firstName} || ${result.secondName} 
     || ${result.age} || ${result.contactNumber} || ${result.email}`;
 
-    entryDiv.appendChild(entryPrint);
-    resultDiv.appendChild(entryDiv);
-})
+    let fillForm = document.createElement("button");
+    fillForm.textContent = "Fill Form";
+    fillForm.type = "button";
+    fillForm.setAttribute("Class", "btn btn-danger btn-sm")
+    fillForm.setAttribute("onClick", `formFiller(${result.id})`);
 
+    entryDiv.appendChild(entryPrint);
+    entryDiv.appendChild(fillForm);
+    resultDiv.appendChild(entryDiv);
+}
+
+//Fill Form
+let formFiller = (id) => {
+    axios.get(`http://localhost:8080/student/getById/${id}`)
+        .then(response => {
+            let res = response.data;
+            inputID.value = res.id;
+            inputFirstName.value = res.firstName;
+            inputSecondName.value = res.secondName;
+            inputAge.value = res.age;
+            inputContactNumber.value = res.contactNumber;
+            inputEmail.value = res.email;
+        }).catch(err => console.log(err));
+}
 
 // Get All
 let getAll = () => {
@@ -61,7 +81,12 @@ let getByID = () => {
 
     axios.get(`http://localhost:8080/student/getById/${inputID.value}`)
         .then(res => {
-            getAll();
+            resultDiv.innerHTML = "";
+            let results = res.data;
+
+            for (let result of results) {
+                databaseResults(result);
+            }
         }).catch(err => console.log(err));
 }
 
@@ -75,7 +100,12 @@ let getByFirstName = () => {
 
     axios.get(`http://localhost:8080/student/getByFirstName/${inputFirstName.value}`)
         .then(res => {
-            getAll();
+            resultDiv.innerHTML = "";
+            let results = res.data;
+
+            for (let result of results) {
+                databaseResults(result);
+            }
         }).catch(err => console.log(err));
 }
 
@@ -89,7 +119,12 @@ let getBySecondName = () => {
 
     axios.get(`http://localhost:8080/student/getBySecondName/${inputSecondName.value}`)
         .then(res => {
-            getAll();
+            resultDiv.innerHTML = "";
+            let results = res.data;
+
+            for (let result of results) {
+                databaseResults(result);
+            }
         }).catch(err => console.log(err));
 }
 
@@ -103,7 +138,12 @@ let getByAge = () => {
 
     axios.get(`http://localhost:8080/student/getByAge/${inputAge.value}`)
         .then(res => {
-            getAll();
+            resultDiv.innerHTML = "";
+            let results = res.data;
+
+            for (let result of results) {
+                databaseResults(result);
+            }
         }).catch(err => console.log(err));
 }
 
@@ -226,7 +266,7 @@ let createValidation = () => {
 
 // Update
 let updateValidation = () => {
-    if (inputID.value === "" || inputFirstName.value === "" || inputSecondName.value === ""
+    if (inputID.value === "" && inputFirstName.value === "" || inputSecondName.value === ""
         || inputAge.value === "" || inputContactNumber.value === ""
         || inputEmail.value === "") {
         return false;
