@@ -1,0 +1,29 @@
+#formDiv {
+    margin-top: 2%;
+    margin-left: 27.5%;
+    width: 45%;
+    border: solid 10px rgb(132, 0, 255);
+    display: block;
+    padding: 10px;
+}
+
+#result-div {
+    border: solid 10px rgb(132, 0, 255);
+    margin-top: 1%;
+    margin-left: 25%;
+    width: 50%;
+}
+
+.mb-3 {
+    padding: 5px;
+}
+
+#resetBtnDiv {
+    margin-left: 47%;
+    margin-top: 1%;
+}
+
+.entry-print {
+    padding: 5px;
+    border: solid 1px;
+}
